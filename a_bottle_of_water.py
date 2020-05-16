@@ -8,9 +8,8 @@ def start():
           "You orient yourself and see a bottle of water on a table. \n"
           "There is also an open door.\n")
     print("What do you do?\n1. Take the bottle of water and walk through the door.\n"
-          "2. Walk through the door without the bottle.\n"
-          "3. Do nothing.")
-    responds = raw_input("> ")
+          "2. Walk through the door without the bottle.")
+    responds = input("> ")
 
     inventory = []
 
@@ -19,10 +18,8 @@ def start():
         staircase(inventory)
     elif responds == '2':
         staircase(inventory)
-    elif responds == '3':
-        dead("You starve to death!")
     else:
-        dead("You starve to death!")
+        start()
 
 
 def dead(string):
@@ -35,20 +32,17 @@ def staircase(inventory):
     print("You enter a staircase. The stairs lead up and down.")
     print("What do you do?\n1. Take stairs down.\n"
           "2. Walk the stairs up.\n"
-          "3. Do nothing.\n"
-          "4. Go back.")
-    responds = raw_input("> ")
+          "3. Go back.")
+    responds = input("> ")
 
     if responds == '1':
         hall(inventory)
     elif responds == '2':
         tower(inventory)
     elif responds == '3':
-        dead("You starve to death!")
-    elif responds == '4':
-        dead("You go back. A shadow appears and swallows you. You die!")
+        start()
     else:
-        dead("You starve to death!")
+        staircase(inventory)
 
 
 def tower(inventory):
@@ -56,7 +50,7 @@ def tower(inventory):
           "surprises you. On the wall you find a coin. There is only one way - down.")
     print("What do you do?\n1. Go down.\n"
           "2. Do nothing.")
-    responds = raw_input("> ")
+    responds = input("> ")
 
     if responds == '1':
         print("You throw the coin:")
@@ -73,17 +67,17 @@ def tower(inventory):
     elif responds == '2':
         dead("You freeze to death!")
     else:
-        dead("You freeze to death!")
+        tower(inventory)
 
 
 def hall(inventory):
-    print("You enter a large empty hall. Each step you take is echoed. There is\n"
+    print("You are in a large empty hall. Each step you take is echoed. There is\n"
           "a large table with cutlery and dishes. On the wall there are pictures of ugly and \n"
           "scary looking people. At the end of the Hall are two doors. One to \n"
           "the left and one to the right.")
     print("What do you do?\n1. Take a fork.\n"
           "2. Take a plate.\n3. Take a knife.\n4. Take nothing.")
-    responds1 = raw_input("> ")
+    responds1 = input("> ")
 
     if responds1 == '1':
         print("You add a fork to your inventory.")
@@ -100,18 +94,16 @@ def hall(inventory):
         print("You add nothing to your inventory.")
 
     print("What do you do next?\n1. Open the door on the right and walk through.\n"
-          "2. Walk through the door on the left. \n3. Do nothing.")
-    responds2 = raw_input("> ")
+          "2. Walk through the door on the left.")
+    responds2 = input("> ")
 
     if responds2 == '1':
         print("The door is locked. You walk through the open door on the left.")
         trap(inventory)
     elif responds2 == '2':
         trap(inventory)
-    elif responds2 == '3':
-        dead("You starve to death.")
     else:
-        dead("You starve to death.")
+        hall(inventory)
 
 
 def trap(inventory):
@@ -123,7 +115,7 @@ def trap(inventory):
         print("You carry a weapon and other things. Your chances of winning a fight are 1:10.\n"
               "What do you do?\n1. Attack!\n2. Don't move.\n3. Walk back into your chamber.")
 
-        responds1 = raw_input("> ")
+        responds1 = input("> ")
 
         if responds1 == '1':
             fight(inventory)
@@ -138,7 +130,7 @@ def trap(inventory):
         print("You carry a weapon but no other things. Your chances of winning a fight are 1:100.\n"
               "What do you do?\n1. Attack!\n2. Don't move.\n3. Walk back into your chamber.")
 
-        responds2 = raw_input("> ")
+        responds2 = input("> ")
 
         if responds2 == '1':
             fight(inventory)
@@ -153,7 +145,7 @@ def trap(inventory):
         print("You carry a few things but no weapon. Your chances of winning a fight are 1:1000.\n"
               "What do you do?\n1. Attack!\n2. Don't move.\n3. Walk back into your chamber.")
 
-        responds3 = raw_input("> ")
+        responds3 = input("> ")
 
         if responds3 == '1':
             fight(inventory)
@@ -167,7 +159,7 @@ def trap(inventory):
     elif not ('knife' in inventory or 'fork' in inventory) and len(inventory) == 1:
         print("You carry a {0!s} but no weapon. Your chances of winning a fight are 1:10000.\n"
               "What do you do?\n1. Attack!\n2. Don't move.\n3. Walk back into your chamber.".format(inventory[0]))
-        responds4 = raw_input("> ")
+        responds4 = input("> ")
 
         if responds4 == '1':
             fight(inventory)
@@ -182,7 +174,7 @@ def trap(inventory):
         print("You carry nothing. Your chances of winning a fight are 0.\n"
               "What do you do?\n1. Don't move.\n2. Walk back into your chamber.")
 
-        responds5 = raw_input("> ")
+        responds5 = input("> ")
 
         if responds5 == '1':
             dead("He repeats the command and after no response chops off your head!")
@@ -201,7 +193,7 @@ def fight(inventory):
     item = 'knife' in inventory or 'fork' in inventory
 
     if item:
-        print("You carry a weapon and {0} other items.".format(len(inventory) - 1))
+        print("You carry a weapon and {0} other item(s).".format(len(inventory) - 1))
         print("What do you do?\n1. Charge with the weapon.")
 
         if len(inventory) - 1 > 0:
@@ -209,7 +201,7 @@ def fight(inventory):
         else:
             pass
 
-        responds1 = raw_input("> ")
+        responds1 = input("> ")
 
         if responds1 == '1':
             dead("You attack with your weapon. He chops off your head!")
@@ -221,7 +213,7 @@ def fight(inventory):
             print("THE END")
             exit(0)
         elif responds1 == 'plate':
-            dead("He destroys the plate with his sword and then you.")
+            dead("First he destroys the plate with his sword and then you.")
         elif responds1 == 'knife' or 'fork':
             dead("You miss. He destroys you.")
         else:
@@ -229,8 +221,8 @@ def fight(inventory):
 
     else:
         print("You carry one or more items.")
-        print("What do you do?\n1. Throw one of the following items (enter item): {0}".format(', '.join(inventory)))
-        responds2 = raw_input("> ")
+        print("What do you do?\n1. Throw one of the following item(s) (enter item): {0}".format(', '.join(inventory)))
+        responds2 = input("> ")
 
         if responds2 == 'coin':
             dead("He laughs and strikes you to the ground!")
@@ -240,7 +232,7 @@ def fight(inventory):
             print("THE END")
             exit(0)
         elif responds2 == 'plate':
-            dead("He destroys the plate with his sword and then you.")
+            dead("First he destroys the plate with his sword and then you.")
         else:
             dead("You mumble something. He chops off your head!")
 
