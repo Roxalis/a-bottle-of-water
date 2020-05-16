@@ -48,7 +48,7 @@ def staircase(inventory):
 def tower(inventory):
     print("You arrive on the top of a tower. A beautiful view of snowy mountains\n"
           "surprises you. On the wall you find a coin. There is only one way - down.")
-    print("What do you do?\n1. Go down.\n"
+    print("What do you do?\n1. Take the coin and go down.\n"
           "2. Do nothing.")
     responds = input("> ")
 
